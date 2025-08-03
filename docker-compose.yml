@@ -446,7 +446,7 @@ services:
         volumes:
             - ${CONFIG}/jvb:/config:Z
         labels:
-            service: "jitsi-jvb"
+            - service="jitsi-jvb"
             - traefik.enable=true
             - traefik.http.routers.jitsi-colibri.rule=Host(`meet.mapdhelpdesk.net`) && PathPrefix(`/colibri-ws`)
             - traefik.http.routers.jitsi-colibri.entryPoints=https

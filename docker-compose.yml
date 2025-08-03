@@ -447,6 +447,12 @@ services:
             - ${CONFIG}/jvb:/config:Z
         labels:
             service: "jitsi-jvb"
+            - traefik.enable=true
+            - traefik.http.routers.jitsi-colibri.rule=Host(`meet.mapdhelpdesk.net`) && PathPrefix(`/colibri-ws`)
+            - traefik.http.routers.jitsi-colibri.entryPoints=https
+            - traefik.http.routers.jitsi-colibri.tls=true
+            - traefik.http.routers.jitsi-colibri.service=jvb-colibri
+            - traefik.http.services.jvb-colibri.loadbalancer.server.port=9090
         environment:
             - AUTOSCALER_SIDECAR_KEY_FILE
             - AUTOSCALER_SIDECAR_KEY_ID

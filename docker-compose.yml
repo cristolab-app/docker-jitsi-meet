@@ -12,7 +12,11 @@ services:
             - ${CONFIG}/transcripts:/usr/share/jitsi-meet/transcripts:Z
             - ${CONFIG}/web/load-test:/usr/share/jitsi-meet/load-test:Z
         labels:
-            service: "jitsi-web"
+            - service=jitsi-web
+            - traefik.http.routers.jitsi-xmpp.rule=Host(`meet.mapdhelpdesk.net`) && PathPrefix(`/xmpp-websocket`)
+            - traefik.http.routers.jitsi-xmpp.entryPoints=https
+            - traefik.http.routers.jitsi-xmpp.tls=true
+            - traefik.http.routers.jitsi-xmpp.service=we
         environment:
             - AMPLITUDE_ID
             - ANALYTICS_SCRIPT_URLS
@@ -453,8 +457,6 @@ services:
             - traefik.http.routers.jitsi-colibri.tls=true
             - traefik.http.routers.jitsi-colibri.service=jvb-colibri
             - traefik.http.services.jvb-colibri.loadbalancer.server.port=9090
-            - traefik.http.routers.jitsi-xmpp.rule=Host(`meet.mapdhelpdesk.net`) && PathPrefix(`/xmpp-websocket`)
-            - traefik.http.routers.jitsi-xmpp.service=web
         environment:
             - AUTOSCALER_SIDECAR_KEY_FILE
             - AUTOSCALER_SIDECAR_KEY_ID

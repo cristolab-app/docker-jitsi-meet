@@ -453,6 +453,8 @@ services:
             - traefik.http.routers.jitsi-colibri.tls=true
             - traefik.http.routers.jitsi-colibri.service=jvb-colibri
             - traefik.http.services.jvb-colibri.loadbalancer.server.port=9090
+            - traefik.http.routers.jitsi-xmpp.rule=Host(`meet.mapdhelpdesk.net`) && PathPrefix(`/xmpp-websocket`)
+            - traefik.http.routers.jitsi-xmpp.service=web
         environment:
             - AUTOSCALER_SIDECAR_KEY_FILE
             - AUTOSCALER_SIDECAR_KEY_ID
